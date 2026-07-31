@@ -1,0 +1,330 @@
+{
+  "info": {
+    "_postman_id": "8f3b2a1c-7d6e-4f5a-9b0c-1d2e3f4a5b6c",
+    "name": "Sentinel Canary Token API Testing",
+    "description": "Lifecycle testing suite for Sentinel API including per-token auth_string on fetch and delete routes. Run 'Generate HTTP Web Beacon Token' first to populate collection variables.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "token_id",
+      "value": ""
+    },
+    {
+      "key": "auth_string",
+      "value": ""
+    },
+    {
+      "key": "token_name",
+      "value": "Production Passwords File Cleartext"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "Welcome Message Root",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Canary Docs Pointer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/docs",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "docs"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Successful Token Generation",
+      "item": [
+        {
+          "name": "Generate HTTP Web Beacon Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const body = pm.response.json();",
+                  "    pm.collectionVariables.set('token_id', body.Token_ID);",
+                  "    pm.collectionVariables.set('auth_string', body.auth_string);",
+                  "    pm.collectionVariables.set('token_name', body.Token_Name);",
+                  "    pm.test('auth_string returned', () => pm.expect(body.auth_string).to.be.a('string'));",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token_type\": \"http\",\n    \"name\": \"Production Passwords File Cleartext\",\n    \"alert_email\": \"security-alerts@company.local\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/canary/generate-token",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "generate-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generate HTTPS Web Beacon Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token_type\": \"https\",\n    \"name\": \"Internal Confluence Wiki Decoy Link\",\n    \"alert_email\": \"soc-team@company.local\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/canary/generate-token",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "generate-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generate AWS Credential Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token_type\": \"aws\",\n    \"name\": \"Dev Backup Deployment Honey Key\",\n    \"alert_email\": \"sysadmin-alerts@company.local\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/canary/generate-token",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "generate-token"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authenticated Management (run after Generate HTTP)",
+      "item": [
+        {
+          "name": "Fetch Token By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/fetch/id/{{token_id}}/{{auth_string}}",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "fetch", "id", "{{token_id}}", "{{auth_string}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch Token By Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/fetch/name/{{token_name}}/{{auth_string}}",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "fetch", "name", "{{token_name}}", "{{auth_string}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fail - Fetch With Wrong auth_string",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/fetch/id/{{token_id}}/00000000-0000-0000-0000-000000000000",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "fetch", "id", "{{token_id}}", "00000000-0000-0000-0000-000000000000"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Trigger & Honeypot (no auth)",
+      "item": [
+        {
+          "name": "Trigger Canary Tripwire",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/trigger/{{token_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "trigger", "{{token_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fail - Trigger Unknown Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/trigger/00000000-0000-0000-0000-000000000000",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "trigger", "00000000-0000-0000-0000-000000000000"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Token Deletion (auth required)",
+      "item": [
+        {
+          "name": "Delete Token By ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/delete/id/{{token_id}}/{{auth_string}}",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "delete", "id", "{{token_id}}", "{{auth_string}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fail - Delete With Wrong auth_string",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/canary/delete/id/{{token_id}}/00000000-0000-0000-0000-000000000000",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "delete", "id", "{{token_id}}", "00000000-0000-0000-0000-000000000000"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Input Validation & Error Handling",
+      "item": [
+        {
+          "name": "Fail - Invalid Token Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token_type\": \"kube_config\",\n    \"name\": \"Malicious Type Test Object\",\n    \"alert_email\": \"test@company.local\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/canary/generate-token",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "generate-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fail - Malformed Email Validation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token_type\": \"aws\",\n    \"name\": \"Broken Email Check\",\n    \"alert_email\": \"not-a-valid-email-string\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/canary/generate-token",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "generate-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fail - Missing Required Fields",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token_type\": \"http\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/canary/generate-token",
+              "host": ["{{base_url}}"],
+              "path": ["canary", "generate-token"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

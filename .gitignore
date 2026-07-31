@@ -1,0 +1,50 @@
+# --- Python Specifics ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# --- IDE & Editor Settings ---
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+
+# --- Environment Secrets (CRITICAL) ---
+# Never commit your .env file as it contains API keys and database credentials.
+.env
+.env.local
+.env.*.local
+
+# --- FastAPI & Database ---
+# Exclude local database files
+*.db
+*.sqlite3
+*.sqlite
+
+# Exclude logs
+*.log
+logs/
+
+# --- Testing & Coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# --- Distribution & Build ---
+dist/
+build/
+*.egg-info/
+.eggs/

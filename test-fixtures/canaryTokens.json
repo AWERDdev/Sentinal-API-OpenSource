@@ -1,0 +1,59 @@
+[
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "http://127.0.0.1:8000/canary/trigger/a89a831e-618b-45b1-a5cf-311b6fc00f26",
+    "Token_ID": "a89a831e-618b-45b1-a5cf-311b6fc00f26",
+    "Token_Name": "Production Passwords File Cleartext",
+    "auth_string": "c1a2b3c4-d5e6-4789-a012-3456789abcde",
+    "_note": "Sample fixture — use auth_string on fetch/delete paths only"
+  },
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "http://127.0.0.1:8000/canary/trigger/a84cb512-1bc8-4964-ad35-94bc622959db",
+    "Token_ID": "a84cb512-1bc8-4964-ad35-94bc622959db",
+    "Token_Name": "Production Passwords File Cleartext AWERD dev http",
+    "auth_string": "d2b3c4d5-e6f7-4890-b123-456789abcdef0"
+  },
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "http://127.0.0.1:8000/canary/trigger/2a2daafd-acda-402f-a495-a4b72472cd8b",
+    "Token_ID": "2a2daafd-acda-402f-a495-a4b72472cd8b",
+    "Token_Name": "Production Passwords File Cleartext AWERD dev https",
+    "auth_string": "e3c4d5e6-f7a8-4901-c234-56789abcdef1"
+  },
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "aws_access_key_id=AKIA_B9534635A13A4C\naws_secret_access_key=fake_secret_b9534635-a13a-4cef-9173-168d5545ba2e",
+    "Token_ID": "b9534635-a13a-4cef-9173-168d5545ba2e",
+    "Token_Name": "Production Database Honey Key AWS",
+    "auth_string": "f4d5e6f7-a8b9-4012-d345-6789abcdef12"
+  },
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "http://127.0.0.1:8000/canary/trigger/e25e1ef5-83da-45a6-b99c-404952ecb706",
+    "Token_ID": "e25e1ef5-83da-45a6-b99c-404952ecb706",
+    "Token_Name": "Production Passwords File Cleartext AWERD dev http",
+    "auth_string": "a5e6f7a8-b9c0-4123-e456-789abcdef123"
+  },
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "http://127.0.0.1:8000/canary/trigger/84c606b3-d5cf-4feb-b7fc-76a5439e8d85",
+    "Token_ID": "84c606b3-d5cf-4feb-b7fc-76a5439e8d85",
+    "Token_Name": "Production Passwords File Cleartext AWERD dev testing verification",
+    "auth_string": "82c0cddd-1954-46f9-ac8f-f89afbd374f6"
+  },
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "http://127.0.0.1:8000/canary/trigger/46acbe0e-f6bc-450c-8a38-7956b7cce8a3",
+    "Token_ID": "46acbe0e-f6bc-450c-8a38-7956b7cce8a3",
+    "Token_Name": "Production Passwords File Cleartext AWERD dev testing verification2",
+    "auth_string": "e85c4d5c-3321-425d-8790-91f7aab8a5a0"
+  },
+  {
+    "message": "your token has been generated successfully",
+    "Canary_Token": "http://127.0.0.1:8000/canary/trigger/70be748d-b898-48fb-92a0-c7e4e2ce6801",
+    "Token_ID": "70be748d-b898-48fb-92a0-c7e4e2ce6801",
+    "Token_Name": "AWERD dev http clear testing of trigger email sending",
+    "auth_string": "4cd0a54b-1ed1-4523-918c-6b94d1e1ab1c"
+}
+]
