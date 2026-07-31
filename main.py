@@ -82,7 +82,7 @@ def welcome_message(request: Request):
 def canary_docs(request: Request):
     """Example endpoint for documentation access."""
     logger.info("canary DOCS have been called")
-    git_repo = "https://github.com/AWERDdev/sentinel-api"
+    git_repo = "https://github.com/AWERDdev/Sentinal-API-OpenSource/"
     
     accept_header = request.headers.get("accept", "")
     if "text/html" in accept_header:
